@@ -1,0 +1,19 @@
+[
+    {
+        "id": 0,
+        "display_name":"Home",
+        "grid":[4,8],
+        "shortcuts":[
+            {
+                "name":"sample",
+                "action":{
+                    "type": "url",
+                    "url": "url"
+                },
+                "icon": "url",
+                "size":[1,1]
+            }
+        ]
+    }
+
+]
