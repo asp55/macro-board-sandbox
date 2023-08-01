@@ -84,5 +84,5 @@ server.listen(PORT, () => {
   }
   console.log(`executing command: ${command}`);
 
-  exec(command);
+  //exec(command);
 });
