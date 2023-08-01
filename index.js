@@ -64,4 +64,25 @@ setInterval(() => {
 
 server.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
+
+
+
+  //Open the browser
+  let command;
+  const os = require('os');
+  const { exec } = require('child_process');
+
+  const osPlatform = os.platform(); 
+  const url = `http://${os.hostname()}:${PORT}`;
+
+  if (osPlatform === 'win32') {
+    command = `start microsoft-edge:${url}`;
+  } else if (osPlatform === 'darwin') {
+    command = `open ${url}`;
+  } else {
+    command = `google-chrome --no-sandbox ${url}`;
+  }
+  console.log(`executing command: ${command}`);
+
+  exec(command);
 });
