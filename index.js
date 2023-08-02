@@ -7,12 +7,23 @@ const express = require("express");
 const PORT = process.env.PORT || process.env.npm_package_config_backendport || 8081;
 
 const FrontEndPath = "./client/public";
+const SheetsJSON = "./assets/sheets.json";
 
 const app = express();
 
+let sheets;
+
+fs.readFile(SheetsJSON).then(data=>{
+  sheets = data.toString();
+  console.log("Sheets loaded");
+  sendSheets();
+});
+
+/*
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
+*/
 
 // All other GET requests not handled before will return our React app
 app.get("*", async (req, res) => {
@@ -43,6 +54,7 @@ const wss = new WebSocket.Server({ server });
 wss.on("connection", (ws) => {
   ws.isAlive = true;
   ws.on("pong", () => (ws.isAlive = true));
+
   //connection is up, let's add a simple simple event
   ws.on("message", (message) => {
     //log the received message and send it back to the client
@@ -51,7 +63,7 @@ wss.on("connection", (ws) => {
   });
 
   //send immediatly a feedback to the incoming connection
-  //ws.send(JSON.stringify({ action: "restart" }));
+  sendSheetTo(ws)
 });
 
 setInterval(() => {
@@ -64,27 +76,15 @@ setInterval(() => {
   });
 }, 10000);
 
+function sendSheets() {
+  wss.clients.forEach(ws=>sendSheetTo(ws))
+}
+
+function sendSheetTo(ws) {
+  ws.send(sheets)
+
+}
+
 server.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
-
-
-
-  //Open the browser
-  let command;
-  const os = require('os');
-  const { exec } = require('child_process');
-
-  const osPlatform = os.platform(); 
-  const url = `http://${os.hostname()}:${PORT}`;
-
-  if (osPlatform === 'win32') {
-    command = `start microsoft-edge:${url}`;
-  } else if (osPlatform === 'darwin') {
-    command = `open ${url}`;
-  } else {
-    command = `google-chrome --no-sandbox ${url}`;
-  }
-  console.log(`executing command: ${command}`);
-
-  //exec(command);
 });

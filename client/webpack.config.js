@@ -38,7 +38,7 @@ module.exports = (env, argv) => {
             options: {
               multiple: [
                 {search: '%%HOST%%', replace: `${process.env.hostname ?? os.hostname()}`},
-                {search: '%%WSPORT%%', replace:`${process.env.npm_package_config_backendport ?? "8081"}`}
+                {search: '%%WSPORT%%', replace:`${process.env.BACKPORT ?? process.env.npm_package_config_backendport ?? "8081"}`}
               ]
             }
           }
