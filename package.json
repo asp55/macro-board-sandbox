@@ -5,7 +5,9 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "prod": "NODE_ENV=production index.js",
+    "start": "NODE_ENV=development nodemon index.js",
+    "dev": "(trap 'kill 0' SIGINT; yarn start & (cd client; yarn start))"
   },
   "keywords": [],
   "author": "Ives van Hoorne",
@@ -19,5 +21,9 @@
   },
   "dependencies": {
     "ws": "^8.13.0"
+  },
+  "config":{
+    "backendport": 8081,
+    "frontendport": 8080
   }
 }

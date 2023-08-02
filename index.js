@@ -4,7 +4,9 @@ const fs = require("fs/promises");
 const path = require("path");
 const express = require("express");
 
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || process.env.npm_package_config_backendport || 8081;
+
+const FrontEndPath = "./client/public";
 
 const app = express();
 
@@ -16,8 +18,8 @@ app.get("/api", (req, res) => {
 app.get("*", async (req, res) => {
   const filePath =
     req._parsedUrl.path.split(".").length >= 2
-      ? path.resolve(__dirname, `./frontend${req._parsedUrl.path}`)
-      : path.resolve(__dirname, `./frontend${req._parsedUrl.path}/index.html`);
+      ? path.resolve(__dirname, `${FrontEndPath}${req._parsedUrl.path}`)
+      : path.resolve(__dirname, `${FrontEndPath}${req._parsedUrl.path}/index.html`);
 
   if (
     await fs
