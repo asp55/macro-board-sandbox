@@ -10,7 +10,7 @@
     "dev": "(trap 'kill 0' SIGINT; yarn start & (cd client; yarn start))"
   },
   "keywords": [],
-  "author": "Ives van Hoorne",
+  "author": "Andrew S. Parnell",
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/node": "^7.22.6",
