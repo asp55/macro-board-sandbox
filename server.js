@@ -6,6 +6,8 @@ const express = require("express");
 
 const PORT = process.env.PORT || process.env.npm_package_config_backendport || 8081;
 
+console.log(process.env.NODE_ENV);
+
 const FrontEndPath = "./client/public";
 const SheetsJSON = "./assets/sheets.json";
 
@@ -14,7 +16,7 @@ const app = express();
 let sheets;
 
 fs.readFile(SheetsJSON).then(data=>{
-  sheets = data.toString();
+  sheets = JSON.parse(data.toString());
   console.log("Sheets loaded");
   sendSheets();
 });
@@ -81,7 +83,7 @@ function sendSheets() {
 }
 
 function sendSheetTo(ws) {
-  ws.send(sheets)
+  ws.send(JSON.stringify({action:"update", sheets:sheets}));
 
 }
 

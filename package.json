@@ -5,9 +5,9 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "prod": "NODE_ENV=production server.js",
+    "prod": "NODE_ENV=production nodemon server.js",
     "start": "nodemon server.js",
-    "dev": "NODE_ENV=development (trap 'kill 0' SIGINT; yarn start & (cd client; BACKPORT=$npm_package_config_backendport yarn start))"
+    "dev": "(trap 'kill 0' SIGINT; NODE_ENV=development yarn start & (cd client; NODE_ENV=development BACKPORT=$npm_package_config_backendport yarn start))"
   },
   "keywords": [],
   "author": "Andrew S. Parnell",

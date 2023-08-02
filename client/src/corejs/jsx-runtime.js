@@ -9,18 +9,14 @@ const appendChild = (parent, child) => {
   }
 };
 export const jsx = (tag, props) => {
-  console.log("JSX",tag,props)
   const {
     children
   } = props;
   if (typeof tag === "function") {
-    console.log("Tag function:",tag(props,children));
     return tag(props, children);
   }
 
-  console.log("Tag",tag);
   const element = document.createElement(tag);
-  console.log("JSX Element",element);
   Object.entries(props || {}).forEach(([name, value]) => {
     if (name.startsWith("on") && name.toLowerCase() in window) {
       element.addEventListener(name.toLowerCase().substr(2), value);

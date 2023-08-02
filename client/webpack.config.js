@@ -38,11 +38,28 @@ module.exports = (env, argv) => {
             options: {
               multiple: [
                 {search: '%%HOST%%', replace: `${process.env.hostname ?? os.hostname()}`},
-                {search: '%%WSPORT%%', replace:`${process.env.BACKPORT ?? process.env.npm_package_config_backendport ?? "8081"}`}
+                {search: '%%WSPORT%%', replace:`${process.env.BACKPORT ?? process.env.npm_package_config_backendport ?? "8081"}`},
+                {search: '%%ENVIRONMENT%%', replace:`${process.env.NODE_ENV}`}
               ]
             }
           }
-        }
+        },
+        {
+          test: /\.s[ac]ss$/i,
+          use: [
+            /*{
+                            loader: 'file-loader',
+                            options: { outputPath: 'css/', name: '[name].min.css'}
+                        },
+            */
+            // Creates `style` nodes from JS strings
+            "style-loader",
+            // Translates CSS into CommonJS
+            "css-loader",
+            // Compiles Sass to CSS
+            "sass-loader",
+          ],
+        },
       ]
     }
   }

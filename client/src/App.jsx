@@ -1,5 +1,5 @@
 import Button from "./components/Button";
-
+import "./style.scss"
 
 function startWebsocket() {
   const protocol = (window.location.protocol == "https:") ? "wss" : "ws"
@@ -22,11 +22,9 @@ function startWebsocket() {
   };
 
   ws.onmessage = (e) => {
-    console.log(e.data);
+    //console.log(e.data);
     var json = JSON.parse(e.data);
-    if (json.action === "update") {
-      updatePanel(json.inMeeting);
-    }
+    console.log(json);
     return false;
   };
   window.ws = ws;
