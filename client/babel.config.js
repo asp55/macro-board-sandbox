@@ -4,7 +4,7 @@ const presets = [];
 const plugins = [
   [
     "@babel/plugin-transform-react-jsx",
-    { runtime: "automatic", importSource: "/src/corejs" },
+    { runtime: "automatic"},
   ],
 ];
 

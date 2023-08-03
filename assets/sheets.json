@@ -2,7 +2,8 @@
     {
         "id": 0,
         "display_name":"Home",
-        "grid":[4,8],
+        "rows": 8,
+        "columns": 4,
         "shortcuts":[
             {
                 "name":"sample",

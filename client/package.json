@@ -27,5 +27,9 @@
   "config": {
     "port": 7070,
     "backendport": 7071
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

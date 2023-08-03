@@ -1,5 +1,9 @@
-import Button from "./components/Button";
+import { createRoot } from 'react-dom/client';
+import Main from './components/Main';
+
 import "./style.scss"
+
+const root = createRoot(document.getElementById('root'));
 
 function startWebsocket() {
   const protocol = (window.location.protocol == "https:") ? "wss" : "ws"
@@ -25,6 +29,9 @@ function startWebsocket() {
     //console.log(e.data);
     var json = JSON.parse(e.data);
     console.log(json);
+    if(json.action && json.action === "update") {
+      root.render(<Main sheets={json.sheets}/>);
+    }
     return false;
   };
   window.ws = ws;
@@ -32,15 +39,5 @@ function startWebsocket() {
 startWebsocket();
 
 
-const App = () => (
-  <div>
-    <Button onClick={() => alert(1)}>Click 11</Button>
-    <Button onClick={() => alert(2)}>Click 12</Button>
-    <Button onClick={() => alert(3)}>Click 14</Button>
-  </div>
-);
 
-const rootElement = document.getElementById("root");
-rootElement.appendChild(<App/>);
-
-export default App;
+root.render(<Main id="main"/>);
