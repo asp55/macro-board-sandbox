@@ -1,6 +1,7 @@
 import Sheet from "./Sheet";
 
 import {useState} from 'react';
+import Switch from "./Switch";
 
 const Main = (props) => {
 
@@ -9,9 +10,9 @@ const Main = (props) => {
     sheets: [],
   }
 
-
   const {sheets, ...rest } = {...defaults, ...props};
 
+  const [edit, setEdit] = useState(true);
   const [activeSheet, updateSheet] = useState(0);
 
   const renderSheet = sheet=><Sheet 
@@ -20,6 +21,8 @@ const Main = (props) => {
        rows={sheet.rows}
        columns={sheet.columns}
        shortcuts={sheet.shortcuts}
+       edit={edit}
+       {...rest}
       />
 
   let _sheet;
@@ -38,10 +41,15 @@ const Main = (props) => {
     _sheet = renderSheet(sheets[_activeSheet]);
   }
 
+  const toggleEdit=()=>{
+    console.log(edit);
+    setEdit(!edit);
+  }
   
   return (
     <>
       {_sheet}
+      <Switch key="editSwitch" checked={edit} onChange={toggleEdit} style={{position: "absolute", bottom: "1rem", right: "1rem"}} id="editmode">Edit</Switch>
     </>
   )
 };

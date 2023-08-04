@@ -40,4 +40,4 @@ startWebsocket();
 
 
 
-root.render(<Main id="main"/>);
+root.render(<Main id="main" key="main"/>);
